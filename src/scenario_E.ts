@@ -20,7 +20,7 @@ class Archer implements Personnage{
     }
 }
 
-class EnsemblePerso{
+class Perso{
     public static createPersonnages(typePerso:string):Personnage{
         if(typePerso==="Guerrier"){
             return new Guerrier();
@@ -33,14 +33,29 @@ class EnsemblePerso{
     }
 }
 
-function main():void {
-    let guerrier=EnsemblePerso.createPersonnages("Guerrier");
-    let magicien=EnsemblePerso.createPersonnages("Magicien");
-    let archer=EnsemblePerso.createPersonnages("Archer");
+class EnsemblePerso{
+    private _perso: Personnage[] = [];
+  
+    ajouterUn(type: string): void {
+      this._perso.push(Perso.createPersonnages(type));
+    }
+  
+    attaque(): void {
+      for (const pers of this._perso) {
+        console.log(pers);
+        pers.attaque();
+      }
+    }
+}
 
-    guerrier.attaque();
-    magicien.attaque();
-    archer.attaque();
+function main():void {
+    const perso=new EnsemblePerso();
+
+    perso.ajouterUn("Guerrier");
+    perso.ajouterUn("Magicien");
+    perso.ajouterUn("Archer");
+
+   perso.attaque();
 }
 
 main();
