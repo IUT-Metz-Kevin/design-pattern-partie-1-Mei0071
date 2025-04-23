@@ -43,7 +43,7 @@ class EnsemblePerso{
     attaque(): void {
       for (const pers of this._perso) {
         console.log(pers);
-        pers.attaque();
+        pers.attaque()
       }
     }
 }

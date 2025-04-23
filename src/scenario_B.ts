@@ -1,9 +1,7 @@
 //Composite 
-/*interface Entreprise{
-    afficher(affichage:string):void;
-}*/
 
-class Departement /*implements Entreprise*/{
+
+class Departement {
     private _name:string;
     private _employes:Employes[];
     private _sousDep:Departement[];
@@ -15,8 +13,8 @@ class Departement /*implements Entreprise*/{
     }
 
     afficher(): void {
-        console.log("Departement : "+this._name);
-        this._sousDep.forEach((element)=>console.log("   Sous departement : "+element._name+"\n       Employes : "+element.employes.map(employe=>employe.nom).join(", ")+"\n"));
+        console.log("Direction Generale : \n    Departement : "+this._name);
+        this._sousDep.forEach((element)=>console.log("       Sous departement : "+element._name+"\n        Employes : "+element.employes.map(employe=>employe.nom).join(", ")+"\n"));
     }
 
     addDepartement(departement:Departement){
@@ -38,7 +36,7 @@ class Departement /*implements Entreprise*/{
     }
 }
 
- class Employes /*implements Entreprise*/{
+ class Employes {
     private _nom:string;
 
     constructor(name:string){
@@ -49,9 +47,6 @@ class Departement /*implements Entreprise*/{
         return this._nom;
     }
 
-    /*afficher(affichage: string): void {
-        
-    }*/
  }
 
  function main():void{
