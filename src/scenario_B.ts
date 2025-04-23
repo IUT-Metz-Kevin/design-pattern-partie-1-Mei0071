@@ -3,26 +3,9 @@ interface Entreprise{
     afficher(affichage:string):void;
 }
 
-class SousDepartement implements Entreprise{
-    private _name:string;
-    private _employes:Employes[];
-
-    constructor(name:string){
-        this._name=name;
-    }
-
-    afficher(affichage: string): void {
-        console.log("Sous departement : "+this._name);
-    }
-
-    addEmployes(employes: Employes): void {
-        this._employes.push(employes);
-    }
-}
-
 class Departement implements Entreprise{
     private _name:string;
-    private _sousDep:Entreprise[];
+    private _sousDep:Departement;
     private _employes:Employes[];
 
     constructor(name:string){
