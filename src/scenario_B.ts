@@ -1,106 +1,93 @@
 //Composite 
-
-
-class Departement {
-    private _name:string;
-    private _employes:Employes[];
-    private _sousDep:Departement[];
-
-    constructor(name:string){
-        this._name=name;
-        this._sousDep=[];
-        this._employes=[];
-    }
-
-    afficher(): void {
-        console.log("Direction Generale : \n    Departement : "+this._name);
-        this._sousDep.forEach((element)=>console.log("       Sous departement : "+element._name+"\n        Employes : "+element.employes.map(employe=>employe.nom).join(", ")+"\n"));
-    }
-
-    addDepartement(departement:Departement){
-        this._sousDep.push(departement);
-    }
-
-    addEmployes(employes: Employes): void {
-        this._employes.push(employes);
-    }
-
-    get nom():string{
-        return this._name;
-    }
-    get sousDep():Departement[]{
-        return this._sousDep;
-    }
-    get employes():Employes[]{
-        return this._employes;
-    }
+interface entreprise{
+    afficher(indentation : string):void;
 }
 
- class Employes {
+class Departement implements entreprise{
+   private _dep:entreprise[];
+   private _nom:string;
+
+   constructor(nom:string){
+    this._dep=[];
+    this._nom=nom;
+   }
+
+   ajouter(composant:entreprise):void{
+    this._dep.push(composant);
+   }
+
+   afficher(indentation: string): void {
+       console.log(`Département : ${this._nom}`);
+       for(let sousDep of this._dep){
+        sousDep.afficher(indentation+ " ");
+       }
+   }
+}
+
+ class Employes implements entreprise{
     private _nom:string;
 
     constructor(name:string){
         this._nom=name;
     }
 
-    get nom():string{
-        return this._nom;
+    afficher(indentation: string): void {
+        console.log(`Employés : ${this._nom}`);
     }
 
  }
 
  function main():void{
-    let emp1=new Employes("jean");
-    let emp2=new Employes("pierre");
-    let emp3=new Employes("jeanne");
+    let DG=new Departement("Diréction générale");
+    let SG=new Departement("Secrétariat général");
+    let DT=new Departement("Département technique");
+    let DC=new Departement("Département commercial");
+    let DF=new Departement("Département financier");
 
-    let depTechnique=new Departement("departement technique");
-    let sdt1=new Departement("IT");
-    let sdt2=new Departement("Web");
+    let IT=new Departement("IT");
+    let Web=new Departement("Web");
+    let Ventes=new Departement("Ventes");
+    let Achats=new Departement("Achats");
+    let RH=new Departement("RH");
+    let Compta=new Departement("Compta");
+    let Admin=new Departement("Admin");
+    
+    let E1=new Employes("Jacques");
+    let E2=new Employes("Jacques");
+    let E3=new Employes("Jacques");
+    let E4=new Employes("Jacques");
+    let E5=new Employes("Jacques");
+    let E6=new Employes("Jacques");
+    let E7=new Employes("Jacques");
+    let E8=new Employes("Jacques");
+    let E9=new Employes("Jacques");
+    let E10=new Employes("Jacques");
 
-    sdt2.addEmployes(emp1);
-    sdt1.addEmployes(emp2);
-    sdt1.addEmployes(emp3);
+    IT.ajouter(E1);
+    IT.ajouter(E2);
+    Web.ajouter(E3);
+    Ventes.ajouter(E4);
+    Ventes.ajouter(E5);
+    Achats.ajouter(E6);
+    RH.ajouter(E7);
+    Compta.ajouter(E8);
+    Admin.ajouter(E9);
+    Admin.ajouter(E10);
 
-    depTechnique.addDepartement(sdt1);
-    depTechnique.addDepartement(sdt2);
+    DT.ajouter(IT);
+    DT.ajouter(Web);
+    DC.ajouter(Ventes);
+    DC.ajouter(Achats);
+    DF.ajouter(Compta);
+    DF.ajouter(RH);
+    DF.ajouter(Admin);
 
+    DG.ajouter(SG);
+    DG.ajouter(DC);
+    DG.ajouter(DF);
+    DG.ajouter(DT);
 
-    let emp4=new Employes("girafe");
-    let emp5=new Employes("gir");
-
-    let depCommerciale=new Departement("Departement Commerciale");
-    let sdc1=new Departement("Ventes");
-    let sdc2=new Departement("Achat");
-
-    sdc1.addEmployes(emp4);
-    sdc2.addEmployes(emp5);
-
-    depCommerciale.addDepartement(sdc1);
-    depCommerciale.addDepartement(sdc2);
-
-    let emp6=new Employes("glen");
-    let emp7=new Employes("chat");
-    let emp8=new Employes("chien");
-
-    let depFinancier=new Departement("Departement Finance");
-    let sdf1=new Departement("RH");
-    let sdf2=new Departement("Comptabilite");
-    let sdf3=new Departement("Administration");
-
-    sdf1.addEmployes(emp6);
-    sdf2.addEmployes(emp7);
-    sdf3.addEmployes(emp8);
-
-    depFinancier.addDepartement(sdf1);
-    depFinancier.addDepartement(sdf2);
-    depFinancier.addDepartement(sdf3);
-
-
-    depTechnique.afficher();
-    depCommerciale.afficher();
-    depFinancier.afficher();
-
+    DG.afficher("Organigramme de l'entreprise");
  }
 
  main();
